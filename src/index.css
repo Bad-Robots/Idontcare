@@ -248,3 +248,25 @@ h2 {
   0% { transform: translate(0,0); opacity: 1; }
   50% { transform: translate(2px, -2px); opacity: 0.8; }
 }
+
+/* Technicolor Tilt */
+.technicolor-tilt {
+  --phosphor-color: #ff00ff;
+  --bg-color: #00ffff;
+  background: var(--bg-color) !important;
+  color: #000 !important;
+  filter: contrast(200%) saturate(200%);
+}
+
+.technicolor-tilt .tv-header,
+.technicolor-tilt .tv-controls {
+  background: #ffcc00;
+  border-color: #000;
+}
+
+.technicolor-tilt button {
+  background: #ff6600;
+  color: #fff;
+  border-color: #000;
+  box-shadow: 2px 2px 0px #000;
+}
