@@ -1,0 +1,250 @@
+:root {
+  --crt-curve: 1.05;
+  --scanline-color: rgba(18, 16, 16, 0.3);
+  --static-color: rgba(255, 255, 255, 0.05);
+  --phosphor-color: #33ff33;
+  --bg-color: #0c0c0c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--phosphor-color);
+  font-family: 'Courier New', Courier, monospace;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+#root {
+  height: 100%;
+}
+
+/* CRT Effects Wrapper */
+.crt-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scanlines Effect */
+.crt-container::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(
+    var(--scanline-color) 50%,
+    rgba(0, 0, 0, 0) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* CRT Screen Flicker */
+.crt-flicker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(18, 16, 16, 0.1);
+  opacity: 0;
+  z-index: 101;
+  pointer-events: none;
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.27861; }
+  5% { opacity: 0.34769; }
+  10% { opacity: 0.23604; }
+  15% { opacity: 0.90626; }
+  20% { opacity: 0.18128; }
+  25% { opacity: 0.83891; }
+  30% { opacity: 0.65583; }
+  35% { opacity: 0.57807; }
+  40% { opacity: 0.26593; }
+  45% { opacity: 0.84623; }
+  50% { opacity: 0.96019; }
+  55% { opacity: 0.08594; }
+  60% { opacity: 0.20313; }
+  65% { opacity: 0.71988; }
+  70% { opacity: 0.53455; }
+  75% { opacity: 0.37288; }
+  80% { opacity: 0.71428; }
+  85% { opacity: 0.70419; }
+  90% { opacity: 0.7003; }
+  95% { opacity: 0.36108; }
+  100% { opacity: 0.24387; }
+}
+
+/* CRT Curvature simulation */
+.crt-screen {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  z-index: 1;
+}
+
+/* Static Overlay */
+.static-void {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAGFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAs+Of9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAANElEQVQ4y2NgwAXKy0uA0Xm5CRAqLy8BRufmJkCoXFwEiM7NTYBQeXkJMDo3NwFC5eUJCADdSwVzL6vSdgAAAABJRU5ErkJggg==');
+  background-repeat: repeat;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* TV Frame Elements */
+.tv-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #1a1a1a;
+  border-bottom: 2px solid #333;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #666;
+}
+
+.tv-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  background: #1a1a1a;
+  border-top: 2px solid #333;
+}
+
+button {
+  background: #222;
+  color: var(--phosphor-color);
+  border: 1px solid var(--phosphor-color);
+  padding: 5px 15px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  box-shadow: 2px 2px 0px var(--phosphor-color);
+}
+
+button:hover {
+  background: var(--phosphor-color);
+  color: #000;
+}
+
+button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px var(--phosphor-color);
+}
+
+/* Channel Specifics */
+.channel-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px var(--phosphor-color);
+}
+
+/* Ticker */
+.ticker {
+  width: 80%;
+  overflow: hidden;
+  border: 1px solid var(--phosphor-color);
+  padding: 10px;
+  margin-top: 2rem;
+  background: rgba(51, 255, 51, 0.05);
+}
+
+.ticker-inner {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Glitch Mode */
+.glitch-mode {
+  filter: hue-rotate(90deg) contrast(150%);
+  transform: skewX(1deg);
+}
+
+/* Rover (The Prisoner) */
+.rover {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+}
+
+.rover-ball {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at 30% 30%, #fff, #ccc);
+  border-radius: 50%;
+  box-shadow: inset -10px -10px 20px rgba(0,0,0,0.2), 0 0 30px rgba(255,255,255,0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Max Headroom Modal */
+.max-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background: #000;
+  border: 4px double var(--phosphor-color);
+  padding: 20px;
+  z-index: 200;
+  text-align: center;
+}
+
+.max-head {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  animation: stutter 0.2s steps(2) infinite;
+}
+
+@keyframes stutter {
+  0% { transform: translate(0,0); opacity: 1; }
+  50% { transform: translate(2px, -2px); opacity: 0.8; }
+}
